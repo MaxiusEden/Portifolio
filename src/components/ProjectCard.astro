@@ -1,0 +1,37 @@
+---
+interface Props {
+    title: string;
+    description: string;
+    tags: string[];
+    imageUrl: string;
+    githubUrl?: string;
+    liveUrl?: string;
+}
+
+const { title, description, tags, imageUrl, githubUrl, liveUrl } = Astro.props;
+---
+<div class="bg-gray-800/50 rounded-xl overflow-hidden border border-gray-700/50 shadow-lg hover:border-cyan-400/50 hover:shadow-cyan-400/10 hover:-translate-y-1 transition-all duration-300 flex flex-col group">
+    <img src={imageUrl} alt={`Imagem do projeto ${title}`} class="w-full h-48 object-cover aspect-video">
+    <div class="p-6 flex flex-col flex-grow">
+        <h3 class="text-xl font-bold mb-2 text-gray-50 group-hover:text-cyan-400 transition-colors">{title}</h3>
+        <p class="text-gray-400 text-sm flex-grow mb-4">{description}</p>
+        
+        <div class="mt-auto flex flex-wrap gap-2">
+            {tags.map(tag => (
+                <span class="bg-gray-700 text-cyan-400 text-xs font-semibold px-2.5 py-0.5 rounded-full">{tag}</span>
+            ))}
+        </div>
+    </div>
+    <div class="p-6 pt-0 flex gap-4">
+        {githubUrl && githubUrl !== '#' && (
+            <a href={githubUrl} target="_blank" class="w-full text-center bg-gray-700 text-gray-200 font-bold py-2 px-4 rounded-lg hover:bg-gray-600 transition-colors">
+                Ver Código
+            </a>
+        )}
+        {liveUrl && liveUrl !== '#' && (
+            <a href={liveUrl} target="_blank" class="w-full text-center bg-cyan-500 text-gray-900 font-bold py-2 px-4 rounded-lg hover:bg-cyan-400 transition-colors">
+                Ver Online
+            </a>
+        )}
+    </div>
+</div>

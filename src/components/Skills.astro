@@ -1,0 +1,25 @@
+---
+const skills = {
+    "Linguagens": ["Java", "Python", "JavaScript", "C#"],
+    "Ferramentas e Frameworks": ["Git", "GitHub", "Unity 2D", "Gradle", "Minecraft Forge", "Next.js", "React"],
+    "Práticas e Metodologias": ["Código Limpo", "Controlo de Versão", "Modularização", "Metodologias Ágeis", "Scrum"]
+};
+---
+
+<section id="habilidades" class="py-20 my-24 bg-gray-800/30 border-y border-gray-700/50">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl sm:text-5xl font-bold text-center mb-16">Habilidades Técnicas</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+            {Object.entries(skills).map(([category, items]) => (
+                <div>
+                    <h3 class="text-2xl font-bold text-cyan-400 mb-6">{category}</h3>
+                    <ul class="space-y-3">
+                        {items.map(item => (
+                            <li class="text-gray-300 text-lg">{item}</li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
