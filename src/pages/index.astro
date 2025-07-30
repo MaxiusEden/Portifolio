@@ -3,14 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Skills from '../components/Skills.astro';
 
-// --- INÍCIO DA LÓGICA PARA BUSCAR OS DOWNLOADS ---
+// --- INÍCIO DA LÓGICA DE DIAGNÓSTICO ---
 
-// Pega a chave da API guardada no Netlify
 const apiKey = import.meta.env.CURSEFORGE_API_KEY;
-const modId = 1183923; // ID do seu mod BotaniaTubes
+const modId = 1183923;
 
-let downloadCount = 50000; // Um valor padrão caso a busca falhe
-let downloadCountFormatted = "+50.000"; // Formato de texto padrão
+let downloadCountFormatted = "+50.000"; // Valor padrão
+
+// Verificação inicial da API Key no log
+console.log(`A usar a API Key que termina em: ${apiKey ? apiKey.slice(-4) : 'NENHUMA'}`);
 
 try {
   const response = await fetch(`https://api.curseforge.com/v1/mods/${modId}`, {
@@ -20,15 +21,23 @@ try {
     }
   });
 
+  // Log para vermos a resposta da API
+  console.log(`Resposta da API do CurseForge: Status ${response.status} ${response.statusText}`);
+
   if (response.ok) {
     const data = await response.json();
-    downloadCount = data.data.downloadCount;
-    // Formata o número para o padrão brasileiro (ex: 51.234)
+    const downloadCount = data.data.downloadCount;
     downloadCountFormatted = `+${downloadCount.toLocaleString('pt-BR')}`;
+    console.log(`Sucesso! Downloads encontrados: ${downloadCount}`);
+  } else {
+    // Log se a resposta não for OK
+    console.error(`Resposta da API não foi OK. Status: ${response.status}`);
+    const errorBody = await response.text();
+    console.error(`Corpo da resposta de erro: ${errorBody}`);
   }
+
 } catch (error) {
-  console.error("Erro ao buscar downloads do CurseForge:", error);
-  // Se der erro, usamos o valor padrão definido acima
+  console.error("ERRO CRÍTICO ao tentar fazer o fetch:", error);
 }
 
 const botaniaTubesDescription = `Addon para o mod Botania que permite automação completa do Petal Apothecary. Atingiu ${downloadCountFormatted} downloads e recebeu feedback positivo da comunidade no CurseForge.`;
