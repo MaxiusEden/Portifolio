@@ -1,0 +1,47 @@
+---
+import { Icon } from 'astro-icon/components';
+
+// Atualizamos a estrutura para incluir o nome do ícone de 'iconify.design'
+const skills = {
+    "Linguagens": [
+        { name: "Java", icon: "devicon:java" },
+        { name: "Python", icon: "devicon:python" },
+        { name: "JavaScript", icon: "devicon:javascript" },
+        { name: "C#", icon: "devicon:csharp" }
+    ],
+    "Ferramentas e Frameworks": [
+        { name: "Git", icon: "devicon:git" },
+        { name: "GitHub", icon: "devicon:github" },
+        { name: "Unity 2D", icon: "devicon:unity" },
+        { name: "Next.js", icon: "devicon:nextjs" },
+        { name: "React", icon: "devicon:react" }
+    ],
+    "Práticas e Metodologias": [
+        { name: "Código Limpo", icon: "mdi:code-braces-box" },
+        { name: "Controle de Versão", icon: "mdi:source-branch" },
+        { name: "Modularização", icon: "mdi:package-variant-closed" },
+        { name: "Scrum", icon: "mdi:human-male-board" }
+    ]
+};
+---
+
+<section id="habilidades" class="py-20 my-24 bg-gray-800/30 border-y border-gray-700/50">
+    <div class="container mx-auto px-4">
+        <h2 class="text-4xl sm:text-5xl font-bold text-center mb-16">Habilidades Técnicas</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+            {Object.entries(skills).map(([category, items]) => (
+                <div>
+                    <h3 class="text-2xl font-bold text-cyan-400 mb-6">{category}</h3>
+                    <ul class="space-y-4">
+                        {items.map(item => (
+                            <li class="flex items-center justify-center gap-3 text-gray-300 text-lg">
+                                <Icon name={item.icon} class="h-6 w-6" />
+                                <span>{item.name}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
